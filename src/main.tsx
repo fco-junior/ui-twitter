@@ -8,12 +8,14 @@ import {
   FileText,
   Hash,
   House,
+  Sparkle,
   User
 } from 'phosphor-react';
 
 import './global.css';
 
 import logoTwitter from './assets/logo-twitter.svg';
+import { Tweet } from './components/Tweet';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -62,7 +64,28 @@ createRoot(document.getElementById('root')!).render(
       </aside>
       
       <div className="content">
-        content
+        <main className="timeline">
+          <div className="timeline-header">
+            Home
+            <Sparkle />
+          </div>
+
+          <form className="new-tweet-form">
+            <label htmlFor="tweet">
+              <img src="https://github.com/fco-junior.png" alt="Fco Costa Cassemiro Jr" />
+              <textarea id="tweet" placeholder="What's happening?" />
+            </label>
+
+            <button type="submit">Tweet</button>
+          </form>
+
+          <div className="separator" />
+
+          <Tweet />
+          <Tweet />
+          <Tweet />
+          <Tweet />
+        </main>
       </div>
     </div>
   </StrictMode>,
