@@ -1,74 +1,23 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import {
-  Bell,
-  BookmarkSimple,
-  DotsThreeCircle,
-  EnvelopeSimple,
-  FileText,
-  Hash,
-  House,
-  Sparkle,
-  User
-} from 'phosphor-react';
 
 import './global.css';
 
-import logoTwitter from './assets/logo-twitter.svg';
+import { Sidebar } from './components/Sidebar';
 import { Tweet } from './components/Tweet';
+import { Header } from './components/Header';
+import { Separator } from './components/Separator';
+
+import tweets from './data/tweetsMock';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <div className="layout">
-      <aside className="sidebar">
-        <img className="logo" src={logoTwitter} alt="Logo" />
+      <Sidebar />
 
-        <nav className="main-navigation">
-          <a className='active' href="">
-            <House weight="fill" />
-            Home
-          </a>
-          <a href="">
-            <Hash />
-            Explore
-          </a>
-          <a href="">
-            <Bell />
-            Notifications
-          </a>
-          <a href="">
-            <EnvelopeSimple />
-            Messages
-          </a>
-          <a href="">
-            <BookmarkSimple />
-            Bookmarks
-          </a>
-          <a href="">
-            <FileText />
-            Lists
-          </a>
-          <a href="">
-            <User />
-            Profiles
-          </a>
-          <a href="">
-            <DotsThreeCircle />
-            More
-          </a>
-        </nav>
-
-        <button className="new-tweet" type="button">
-          Tweet
-        </button>
-      </aside>
-      
       <div className="content">
         <main className="timeline">
-          <div className="timeline-header">
-            Home
-            <Sparkle />
-          </div>
+          <Header title="Home" />
 
           <form className="new-tweet-form">
             <label htmlFor="tweet">
@@ -79,12 +28,24 @@ createRoot(document.getElementById('root')!).render(
             <button type="submit">Tweet</button>
           </form>
 
-          <div className="separator" />
+          <Separator />
 
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
+          {
+            tweets.map(tweet => {
+              return (
+                <Tweet
+                  key={tweet.user}
+                  icon={tweet.icon}
+                  name={tweet.name}
+                  user={tweet.user}
+                  content={tweet.content}
+                  likes={tweet.likes}
+                  retweets={tweet.retweets}
+                  comments={tweet.comments}
+                />
+              )
+            })
+          }
         </main>
       </div>
     </div>
