@@ -2,7 +2,7 @@ import { Header } from "../components/Header"
 import { Separator } from "../components/Separator"
 import { Tweet } from "../components/Tweet"
 
-import tweets from '../data/tweetsMock';
+import { tweets } from '../data/tweetsMock';
 
 import './Timeline.css';
 
