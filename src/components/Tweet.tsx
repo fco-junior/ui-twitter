@@ -3,49 +3,36 @@ import './Tweet.css';
 import { Link } from 'react-router-dom';
 
 interface TweetProps {
-  icon?: string,
-  name: string,
-  user: string,
-  content: string,
-  likes: number,
-  retweets: number,
-  comments: number
+  content: string
 }
 
 export function Tweet(props: TweetProps) {
   return (
     <Link to="/status" className="tweet">
-      <img src={props.icon ?? ""} alt={props.name} />
+      <img src="https://github.com/fco-junior.png" alt="Fco Costa Cassemiro Junior" />
 
       <div className="tweet-content">
         <div className="tweet-content-header">
-          <strong>{props.name}</strong>
-          <span>{props.user}</span>
+          <strong>Fco Costa Cassemiro Junior</strong>
+          <span>@cassemirojr</span>
         </div>
 
-        {
-          props.content.split("\n").map((line, index) => (
-            <p key={index}>
-              {line}
-              <br />
-            </p>
-          ))
-        }
+        <p> {props.content} </p>
 
         <div className="tweet-content-footer">
           <button type="button">
             <ChatCircle />
-            {props.likes}
+            {20}
           </button>
 
           <button type="button">
             <ArrowsClockwise />
-            {props.retweets}
+            {10}
           </button>
 
           <button type="button">
             <Heart />
-            {props.comments}
+            {5}
           </button>
         </div>
       </div>

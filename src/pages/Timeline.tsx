@@ -1,20 +1,38 @@
+import { FormEvent, useState } from "react";
 import { Header } from "../components/Header"
 import { Separator } from "../components/Separator"
 import { Tweet } from "../components/Tweet"
 
-import { tweets } from '../data/tweetsMock';
-
 import './Timeline.css';
 
 export function Timeline() {
+  const [newTweet, setNewTweet] = useState("");
+  const [tweets, setTweets] = useState([
+    'Meu primeiro tweet',
+    'Teste',
+    'Deu certo tweetar!'
+  ]);
+
+  function createNewTweet(event: FormEvent) {
+    event.preventDefault();
+    setTweets([newTweet, ...tweets]);
+    setNewTweet("");
+  }
+
   return (
     <main className="timeline">
       <Header title="Home" />
 
-      <form className="new-tweet-form">
+      <form onSubmit={createNewTweet} className="new-tweet-form">
         <label htmlFor="tweet">
           <img src="https://github.com/fco-junior.png" alt="Fco Costa Cassemiro Jr" />
-          <textarea id="tweet" placeholder="What's happening?" />
+          <textarea onChange={(event) => {
+              setNewTweet(event.target.value);
+            }}
+            value={newTweet}
+            id="tweet"
+            placeholder="What's happening?"
+          />
         </label>
 
         <button type="submit">Tweet</button>
@@ -25,16 +43,7 @@ export function Timeline() {
       {
         tweets.map(tweet => {
           return (
-            <Tweet
-              key={tweet.user}
-              icon={tweet.icon}
-              name={tweet.name}
-              user={tweet.user}
-              content={tweet.content}
-              likes={tweet.likes}
-              retweets={tweet.retweets}
-              comments={tweet.comments}
-            />
+            <Tweet key={tweet} content={tweet} />
           )
         })
       }

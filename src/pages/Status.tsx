@@ -1,32 +1,42 @@
+import { FormEvent, useState } from "react";
 import { Header } from "../components/Header"
 import { Separator } from "../components/Separator"
 import { Tweet } from "../components/Tweet";
 
-import { tweets, answers } from '../data/tweetsMock';
 import './Status.css';
 
-
 export function Status() {
+  const [newAnswer, setNewAnswer] = useState("")
+  const [answers, setAnswers] = useState([
+    'Concordo!',
+    'Faz muito sentido',
+    'Parabéns'
+  ]);
+
+  function createNewAnswer(event:FormEvent) {
+    event.preventDefault();
+    setAnswers([newAnswer, ...answers]);
+    setNewAnswer("");
+  }
+
   return (
     <main className="status">
       <Header title="Tweet" />
 
-      <Tweet
-        icon={tweets[0].icon}
-        name={tweets[0].name}
-        user={tweets[0].user}
-        content={tweets[0].content}
-        likes={tweets[0].likes}
-        retweets={tweets[0].retweets}
-        comments={tweets[0].comments}
-      />
+      <Tweet content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique officia autem libero, veritatis mollitia qui nisi eveniet cumque rerum atque, unde nobis, consectetur illo assumenda. Amet totam consequuntur repudiandae cum?" />
 
       <Separator />
 
-      <form className="answer-tweet-form">
+      <form onSubmit={createNewAnswer} className="answer-tweet-form">
         <label htmlFor="tweet">
           <img src="https://github.com/fco-junior.png" alt="Fco Costa Cassemiro Jr" />
-          <textarea id="tweet" placeholder="Tweet your answer" />
+          <textarea onChange={(event) => {
+              setNewAnswer(event.target.value)
+            }}
+            value={newAnswer}
+            id="tweet"
+            placeholder="Tweet your answer"
+          />
         </label>
 
         <button type="submit">Answer</button>
@@ -34,18 +44,7 @@ export function Status() {
 
       {
         answers.map(answer => {
-          return (
-            <Tweet
-              key={answer.user}
-              icon={answer.icon}
-              name={answer.name}
-              user={answer.user}
-              content={answer.content}
-              likes={answer.likes}
-              retweets={answer.retweets}
-              comments={answer.comments}
-            />
-          )
+          return <Tweet key={answer} content={answer} />
         })
       }
     </main>
